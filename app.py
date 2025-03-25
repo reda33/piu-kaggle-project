@@ -38,7 +38,7 @@ st.title('Prédiction de l\'utilisation problématique d\'Internet')
 age = st.number_input('Âge', min_value=0, max_value=100, value=18)
 bmi = st.number_input('IMC (Indice de Masse Corporelle)', min_value=10.0, max_value=50.0, value=20.0)
 hours_internet = st.number_input('Heures d\'Internet par jour', min_value=0, max_value=24, value=2)
-depression_score = st.number_input('Score de dépression (SDS)', min_value=0, max_value=100, value=10)
+depression_score = st.number_input('Score de dépression (SDS)', min_value=0, max_value=100, value=60)
 sex = st.selectbox('Sexe', options=[0, 1])  # 0 = Garçon, 1 = Fille
 season_enroll = st.selectbox('Saison d\'inscription', options=[0, 1, 2, 3])  # Exemple pour 4 saisons possibles
 physical_season = st.selectbox('Saison physique', options=[0, 1, 2, 3])
