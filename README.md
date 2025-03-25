@@ -88,11 +88,11 @@ Ce projet montre comment des modèles puissants comme **LightGBM** et **XGBoost*
 - Test de modèles supplémentaires (comme **CatBoost**)
 - Exploration de techniques avancées pour le **rééquilibrage des classes**
 
-## 🚀 Application Streamlit (Interface interactive)
+## Application Streamlit (Interface interactive)
 
 Une interface web a été développée avec [**Streamlit**](https://streamlit.io/) pour permettre à un utilisateur d’entrer manuellement des caractéristiques et d’obtenir une prédiction en temps réel du niveau d’usage problématique d’Internet.
 
-### ▶️ Lancer l’application localement
+###  Lancer l’application localement
 
 Assurez-vous que vous avez bien installé les dépendances (voir section [Installation](#installation)) puis exécutez la commande suivante :
 
