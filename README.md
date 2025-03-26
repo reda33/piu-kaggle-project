@@ -1,101 +1,154 @@
-# piu-kaggle-project
-# **PIU Kaggle Project - Predictive Modeling for Problematic Internet Use**
+# PIU Kaggle Project – Predictive Modeling for Problematic Internet Use
 
-## **Description**
-Ce projet a pour objectif de prédire l'usage problématique d'Internet chez les enfants et adolescents à partir de données issues de questionnaires cliniques et de mesures physiques.
+##  Description
 
-Le modèle utilise des algorithmes de **Machine Learning** pour classer les individus en fonction de leur niveau de sévérité (`sii`) dans 4 classes :
-- **0** : Aucun problème
-- **1** : Problème léger
-- **2** : Problème modéré
-- **3** : Problème sévère
+Ce projet a été réalisé dans le cadre de la compétition Kaggle **"Problematic Internet Use"** organisée par le **Child Mind Institute**.  
+L'objectif : **prédire le niveau de sévérité de l’usage problématique d’Internet (sii)** chez les enfants et adolescents, à partir de données cliniques, physiques et comportementales.
 
-Le modèle a été testé et optimisé avec **LightGBM** et **XGBoost**, deux algorithmes populaires pour les compétitions Kaggle.
+Les individus sont classés en 4 catégories :
+- `0` : Aucun problème
+- `1` : Problème léger
+- `2` : Problème modéré
+- `3` : Problème sévère
 
-## **Table of Contents**
+---
+
+##  Table of Contents
 - [Installation](#installation)
 - [Data](#data)
 - [Features](#features)
 - [Modeling](#modeling)
 - [Hyperparameter Optimization](#hyperparameter-optimization)
 - [Results](#results)
+- [Application Streamlit](#application-streamlit-interface-interactive)
+- [Déploiement Cloud (AWS)](#déploiement-cloud-aws)
 - [Conclusion](#conclusion)
+- [Future Work](#future-work)
 
-## **Installation**
-1. Clonez ce repository :
-    ```bash
-    git clone https://github.com/ton-utilisateur/piu-kaggle-project.git
-    cd piu-kaggle-project
-    ```
+---
 
-2. Installez les dépendances nécessaires :
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-## **Data**
-Les données proviennent de la compétition Kaggle "Child Mind Institute – Problematic Internet Use". 
-Vous pouvez télécharger les données directement depuis la page de la compétition. Les fichiers sont au format `.csv` :
-- `train.csv` : Ensemble d'entraînement contenant les caractéristiques des individus et la cible `sii`.
-- `test.csv` : Ensemble de test sans la colonne `sii`.
-
-## **Features**
-Les principales caractéristiques utilisées dans le modèle sont :
-- **Numériques** :
-  - `Basic_Demos-Age`, `Physical-BMI`, `PreInt_EduHx-computerinternet_hoursday`, `SDS-SDS_Total_T`
-- **Catégorielles** :
-  - `Basic_Demos-Sex`, `Basic_Demos-Enroll_Season`, `Physical-Season`
-
-## **Modeling**
-Le modèle de base utilise **LightGBM**, un algorithme de boosting populaire. Après une première évaluation, un **XGBoost** a également été testé.
-
-1. **LightGBM** :
-   - Hyperparamètres de base :
-     - `learning_rate = 0.05`
-     - `max_depth = 3`
-     - `n_estimators = 100`
-     - `num_leaves = 15`
-   - **QWK score** : 0.3499 après optimisation.
-
-2. **XGBoost** :
-   - Hyperparamètres optimisés :
-     - `learning_rate = 0.1`
-     - `max_depth = 3`
-     - `n_estimators = 100`
-     - `subsample = 0.7`
-   - **QWK score** : 0.3355.
-
-## **Hyperparameter Optimization**
-L'optimisation des hyperparamètres a été réalisée à l'aide de **GridSearchCV**, avec les paramètres suivants :
-- **Learning rate**
-- **Max depth**
-- **Number of estimators**
-- **Subsample ratio**
-
-## **Results**
-- Après optimisation, **LightGBM** a donné le meilleur résultat avec un **QWK score de 0.3499**.
-- Les prédictions ont été générées pour la compétition Kaggle.
-
-Les résultats des prédictions sont disponibles dans le fichier `outputs/submission_baseline.csv`.
-
-## **Conclusion**
-Ce projet montre comment des modèles puissants comme **LightGBM** et **XGBoost** peuvent être utilisés pour prédire des problèmes de dépendance à Internet chez les jeunes à partir de données cliniques et de comportement.
-
-- **LightGBM** a donné les meilleurs résultats.
-- Le modèle peut encore être amélioré par l'ajout de nouvelles features, un meilleur tuning des hyperparamètres, ou l'intégration de données externes.
-
-## **Future Work**
-- Test de modèles supplémentaires (comme **CatBoost**)
-- Exploration de techniques avancées pour le **rééquilibrage des classes**
-
-## Application Streamlit (Interface interactive)
-
-Une interface web a été développée avec [**Streamlit**](https://streamlit.io/) pour permettre à un utilisateur d’entrer manuellement des caractéristiques et d’obtenir une prédiction en temps réel du niveau d’usage problématique d’Internet.
-
-###  Lancer l’application localement
-
-Assurez-vous que vous avez bien installé les dépendances (voir section [Installation](#installation)) puis exécutez la commande suivante :
+##  Installation
 
 ```bash
+git clone https://github.com/reda33/piu-kaggle-project.git
+cd piu-kaggle-project
+pip install -r requirements.txt
+```
+
+---
+
+##  Data
+
+Les données utilisées proviennent de la compétition Kaggle :  
+🔗 https://www.kaggle.com/competitions/child-mind-institute-problematic-internet-use/
+
+- `train.csv` : données d’entraînement avec la cible `sii`
+- `test.csv` : données de test sans la colonne `sii`
+
+---
+
+##  Features
+
+###  Variables numériques
+- `Basic_Demos-Age`
+- `Physical-BMI`
+- `PreInt_EduHx-computerinternet_hoursday`
+- `SDS-SDS_Total_T`
+
+###  Variables catégorielles
+- `Basic_Demos-Sex`
+- `Basic_Demos-Enroll_Season`
+- `Physical-Season`
+
+---
+
+##  Modeling
+
+###  Modèle principal : LightGBM
+- `learning_rate = 0.05`
+- `max_depth = 3`
+- `n_estimators = 100`
+- `num_leaves = 15`
+-  QWK Score : **0.3499**
+
+###  Comparatif : XGBoost
+- `learning_rate = 0.1`
+- `max_depth = 3`
+- `n_estimators = 100`
+- `subsample = 0.7`
+-  QWK Score : **0.3355**
+
+---
+
+##  Hyperparameter Optimization
+
+Optimisation réalisée avec `GridSearchCV` sur :
+- `learning_rate`
+- `max_depth`
+- `n_estimators`
+- `subsample`
+- `num_leaves`
+
+---
+
+##  Results
+
+-  **Meilleur modèle** : LightGBM  
+-  **QWK Score** : 0.3499  
+-  Prédictions disponibles dans : `outputs/submission_baseline.csv`
+
+---
+
+##  Application Streamlit (Interface interactive)
+
+Une interface a été développée avec **Streamlit** pour simuler une prédiction dynamique.
+
+###  Lancer l'application localement :
+```bash
 streamlit run app.py
+```
+
+L’utilisateur peut renseigner : âge, IMC, score de dépression, etc.  
+→ Et obtenir une prédiction claire : **aucun problème / léger / modéré / sévère**
+
+---
+
+## ☁ Déploiement Cloud (AWS)
+
+L'application a été **déployée sur un serveur EC2 Ubuntu via AWS**, avec :
+- Création d’instance
+- Environnement virtuel Python
+- Installation des dépendances
+- Ouverture du port `8501` (Streamlit)
+- Lancement et accès via IP publique
+
+🔗 Démo en ligne disponible ici (exemple) :
+```
+http://15.237.191.31:8501
+```
+
+---
+
+##  Conclusion
+
+Ce projet démontre la capacité à :
+- Manipuler des données réelles issues d’un contexte clinique
+- Appliquer des modèles de classification supervisés
+- Optimiser les performances
+- Créer une interface simple et intuitive
+- Déployer une solution sur le cloud
+
+---
+
+##  Future Work
+
+- Intégration de **SHAP** pour l’interprétabilité des prédictions
+- Déploiement automatisé sur **Streamlit Cloud / Docker**
+- Ajout de **features combinées** ou dérivées
+- Rééquilibrage des classes avec **SMOTE**
+
+---
+
+ **Auteur** : Rida KHAYI  
+🔗 [Mon GitHub](https://github.com/reda33)
 
